@@ -3,7 +3,7 @@ import { supabase } from '../SupabaseClient';
 import { useSearchParams } from "react-router-dom"; // ADD THIS
 import "./BaymaxChat.css";
 
-import API_BASE from "../../api/client";
+import API_BASE from "../api/client";
 
 // Utility: get personalized LS key
 function getChatStorageKey(user) {

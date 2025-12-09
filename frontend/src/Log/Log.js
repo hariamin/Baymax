@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "../SupabaseClient"; 
 import "./HealthLogCalendar.css";
 
-import API_BASE from "../../api/client"; 
+import API_BASE from "../api/client"; 
 
 
 const dayOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -21,7 +21,6 @@ const monthsOfYear = [
   "December",
 ];
 
-const API_BASE = process.env.REACT_APP_API_BASE_URL || "";
 
 const defaultForm = {
   tookMedication: false,

@@ -13,7 +13,7 @@ import {
 import { supabase } from "../SupabaseClient"; 
 import "./Graph.css";
 
-import API_BASE from "../../api/client";
+import API_BASE from "../api/client";
 
 // Base URL for the backend API
 

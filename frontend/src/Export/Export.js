@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Export.css';
 import { supabase } from '../SupabaseClient'; // adjust path if needed
 
-import API_BASE from "../../api/client";
+import API_BASE from "../api/client";
 
 function Export() {
   const [selectedCategories, setSelectedCategories] = useState([]);

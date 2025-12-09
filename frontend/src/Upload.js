@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "./SupabaseClient";
 import "./Upload.css";
 
-import API_BASE from "../api/client";
+import API_BASE from "./api/client";
 
 function Upload() {
   const [file, setFile] = useState(null);
