@@ -7,3 +7,4 @@ PyJWT==2.8.0
 gunicorn==21.2.0
 reportlab
 PyPDF2
+pytesseract
