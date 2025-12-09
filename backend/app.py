@@ -1302,6 +1302,8 @@ DO NOT provide medical advice or suggest changes to treatment."""
         print(f"Gemini error: {e}")
         return "Unable to generate explanation"
 
+app = create_app()
+
 if __name__ == "__main__":
     app = create_app()
     app.run(debug=True, port=5001)
