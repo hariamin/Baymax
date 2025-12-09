@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import { supabase } from "../SupabaseClient"; 
 import "./HealthLogCalendar.css";
 
+import API_BASE from "../../api/client"; 
+
+
 const dayOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const monthsOfYear = [
   "January",

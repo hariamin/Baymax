@@ -3,6 +3,8 @@ import { supabase } from '../SupabaseClient';
 import { useSearchParams } from "react-router-dom"; // ADD THIS
 import "./BaymaxChat.css";
 
+import API_BASE from "../../api/client";
+
 // Utility: get personalized LS key
 function getChatStorageKey(user) {
   return user?.email ? `baymax_chat_history_${user.email}` : "baymax_chat_history_guest";
@@ -65,7 +67,7 @@ function BaymaxChat() {
   // 🆕 LOAD PRESCRIPTION IF ID IS PROVIDED
   useEffect(() => {
     if (prescriptionId) {
-      fetch(`http://localhost:5001/api/prescription/${prescriptionId}`)
+      fetch(`${API_BASE}/api/prescription/${prescriptionId}`)
         .then(res => res.json())
         .then(data => {
           setPrescription(data);
@@ -142,7 +144,7 @@ function BaymaxChat() {
       const userId = currentUser ? currentUser.id : "anonymous";
 
       // 🆕 INCLUDE PRESCRIPTION_ID IN REQUEST
-      const response = await fetch('http://localhost:5001/api/chat', {
+      const response = await fetch(`${API_BASE}/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 

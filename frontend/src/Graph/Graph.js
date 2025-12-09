@@ -13,8 +13,11 @@ import {
 import { supabase } from "../SupabaseClient"; 
 import "./Graph.css";
 
+import API_BASE from "../../api/client";
+
 // Base URL for the backend API
-const API_BASE = process.env.REACT_APP_API_BASE_URL || "http://127.0.0.1:5001";
+
+fetch(`${API_BASE}/api/health-logs?...`)
 
 // Category options for the filter UI
 const CATEGORY_OPTIONS = [

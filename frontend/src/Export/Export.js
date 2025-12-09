@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './Export.css';
 import { supabase } from '../SupabaseClient'; // adjust path if needed
 
+import API_BASE from "../../api/client";
+
 function Export() {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [dateRange, setDateRange] = useState({
@@ -98,7 +100,7 @@ function Export() {
     setPreviewData(null);
 
     try {
-      const response = await fetch('http://localhost:5001/api/export/preview', {
+      const response = await fetch(`${API_BASE}/api/export/preview`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -144,7 +146,7 @@ function Export() {
     setExportStatus('Preparing export...');
 
     try {
-      const response = await fetch('http://localhost:5001/api/export', {
+      const response = await fetch(`${API_BASE}/api/export`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
