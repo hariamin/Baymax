@@ -123,6 +123,15 @@ See [`SETUP.md`](SETUP.md) for detailed installation instructions.
 - **Data Export**: Export health data in CSV, PDF, or JSON formats
 - **User Authentication**: Secure login with Google OAuth via Supabase
 
+
+## Running Backend Tests and Coverage
+
+From the `backend` folder:
+
+cd backend
+python -m coverage run -m unittest discover
+python -m coverage report
+
 ## Security Notes
 
 - Never commit `.env` files to version control
