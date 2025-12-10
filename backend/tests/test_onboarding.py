@@ -195,6 +195,48 @@ class OnboardingTestCase(unittest.TestCase):
         self.assertIn("message", data)
         self.assertTrue(data.get("terms_accepted"))
 
+    def test_medical_history_skipped(self):
+        """
+        Test that medical history endpoint correctly handles 'skipped' flag.
+        """
+        payload = {
+            "user_id": "skip_user_1",
+            "skipped": True
+        }
+
+        resp = self.client.post(
+            "/api/onboarding/medical-history",
+            data=json.dumps(payload),
+            content_type="application/json"
+        )
+
+        self.assertEqual(resp.status_code, 200)
+        data = json.loads(resp.data)
+        self.assertTrue(data.get("skipped"))
+        self.assertEqual(data.get("message"), "Medical history skipped")
+
+    def test_accept_terms_missing(self):
+        """
+        Test that accepting terms fails when terms_accepted is not True.
+        """
+        payload = {
+            "user_id": "terms_error_user",
+            "terms_accepted": False,      # triggers error branch
+            "privacy_accepted": False,
+            "ip_address": "127.0.0.1",
+        }
+
+        resp = self.client.post(
+            "/api/onboarding/accept-terms",
+            data=json.dumps(payload),
+            content_type="application/json"
+        )
+
+        self.assertEqual(resp.status_code, 400)
+        data = json.loads(resp.data)
+        self.assertIn("error", data)
+        self.assertEqual(data["error"], "Must accept terms of service")
+
 
 if __name__ == "__main__":
     unittest.main()
