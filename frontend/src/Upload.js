@@ -54,7 +54,7 @@ function Upload() {
       formData.append("user_id", userId);
 
       // Upload to backend
-      const response = await fetch("/api/prescription/upload", {
+      const response = await fetch(`${API_BASE}/api/prescription/upload`, {
         method: "POST",
         body: formData,
       });
