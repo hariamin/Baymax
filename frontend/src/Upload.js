@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "./SupabaseClient";
 import "./Upload.css";
 
-import API_BASE from "./api/client";
-
 function Upload() {
   const [file, setFile] = useState(null);
   const [prescription, setPrescription] = useState(null);
@@ -56,15 +54,9 @@ function Upload() {
       formData.append("user_id", userId);
 
       // Upload to backend
-<<<<<<< HEAD
-      const response = await fetch(`${API_BASE}/api/prescription/upload`, {
-        method: 'POST',
-        body: formData
-=======
       const response = await fetch("http://localhost:5001/api/prescription/upload", {
         method: "POST",
         body: formData,
->>>>>>> upstream/main
       });
 
       const data = await response.json();
