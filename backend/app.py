@@ -880,24 +880,12 @@ def create_app():
 
 
     # ----------------- Export preview -----------------
-    def parse_user_date(date_str):
-        """Try parsing user-entered date in multiple formats."""
-
-        if not date_str:
-            return None
-       
-        try:
-            return datetime.strptime(date_str, "%Y-%m-%d")
-        except ValueError:
-            raise ValueError("Invalid date format")
-        
-
     @app.route("/api/export/preview", methods=["POST"])
     def preview_export():
         """Preview export data without downloading"""
         try:
             data = request.json
-            # Default user_id to "anonymous" for tests / logged-out
+
             user_id = data.get("user_id") or "anonymous" # ✅ ADD
 
             categories = data.get("categories", [])
@@ -912,35 +900,35 @@ def create_app():
             # Fetch from MongoDB instead of seed file
             #logs = list(db.health_logs.find())
 
-            # parse and Validate custom date range
+            # Validate custom date range
+            if start_date and end_date:
+                start = datetime.strptime(start_date, "%Y-%m-%d")
+                end = datetime.strptime(end_date, "%Y-%m-%d")
+                now = datetime.now()
+                if start > now:
+                    return jsonify({"error": "Start date cannot be in the future."}), 400
+                if start > end:
+                    return jsonify({"error": "Start date must not be after end date."}), 400
 
-            try:
-                start = parse_user_date(start_date) if start_date else None
-                end = parse_user_date(end_date) if end_date else None
-            except ValueError:
-                return jsonify({"error": "Invalid date format. Use YYYY-MM-DD or MM/DD/YYYY"}), 400
-            
-            now = datetime.now()
-
-            if start and start > now:
-                return jsonify({"error": "Start date cannot be in the future."}), 400
-            if start > end and start and end:
-                return jsonify({"error": "Start date must not be after end date."}), 400
-
-            if start or end:
+            if start_date or end_date:
                 filtered_logs = []
                 for log in logs:
                     try:
                         log_date = datetime.strptime(log["date"], "%m-%d-%Y")
 
+                        if start_date:
+                            start = datetime.strptime(start_date, "%Y-%m-%d")
+                            if log_date < start:
+                                continue
+
+                        if end_date:
+                            end = datetime.strptime(end_date, "%Y-%m-%d")
+                            if log_date > end:
+                                continue
+
+                        filtered_logs.append(log)
                     except (ValueError, KeyError):
                         continue
-
-                    if start and log_date < start:
-                        continue
-                    if end and log_date > end:
-                        continue
-                    filtered_logs.append(log)
                 logs = filtered_logs
 
             if categories:
