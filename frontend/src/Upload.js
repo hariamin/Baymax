@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "./SupabaseClient";
+import API_BASE from "./apiClient";
 import "./Upload.css";
 
 function Upload() {
